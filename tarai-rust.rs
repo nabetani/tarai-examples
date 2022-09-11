@@ -1,4 +1,6 @@
-const fn tarai(x: i32, y: i32, z: i32) -> i32 {
+use std::env;
+
+fn tarai(x: i32, y: i32, z: i32) -> i32 {
     if x > y {
         tarai(tarai(x - 1, y, z), tarai(y - 1, z, x), tarai(z - 1, x, y))
     } else {
@@ -7,5 +9,9 @@ const fn tarai(x: i32, y: i32, z: i32) -> i32 {
 }
 
 fn main() {
-    println!("{}", tarai(14, 7, 0));
+    let args: Vec<String> = env::args().collect();
+    let x:i32 = args[1].parse().unwrap_or(14);
+    let y:i32 = args[2].parse().unwrap_or(7);
+    let z:i32 = args[3].parse().unwrap_or(0);
+    println!("tarai({}, {}, {}) = {}", x, y, z, tarai(x,y,z));
 }
