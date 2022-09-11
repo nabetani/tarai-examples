@@ -1,4 +1,5 @@
 const std = @import("std");
+const process = std.process;
 
 fn tarai(x: i32, y: i32, z: i32) i32 {
     if (x > y) {
@@ -8,16 +9,21 @@ fn tarai(x: i32, y: i32, z: i32) i32 {
     }
 }
 
-fn arg_i32(ix: usize, fallback: i32) !i32 {
-    if (std.os.argv.len<=ix) {
+fn arg_i32(args: [][:0]u8, ix: usize, fallback: i32) !i32 {
+    if (std.os.argv.len <= ix) {
         return fallback;
     }
-    return try std.fmt.parseInt(i32, std.mem.span(std.os.argv[ix]), 10);
+    return try std.fmt.parseInt(i32, args[ix], 10);
 }
 
 pub fn main() !void {
-    var x: i32 = try arg_i32(1, 14);
-    var y: i32 = try arg_i32(2, 7);
-    var z: i32 = try arg_i32(3, 0);
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const a = gpa.allocator();
+    var args = try process.argsAlloc(a);
+    defer process.argsFree(a, args);
+
+    var x: i32 = try arg_i32(args, 1, 14);
+    var y: i32 = try arg_i32(args, 2, 7);
+    var z: i32 = try arg_i32(args, 3, 0);
     try std.io.getStdOut().writer().print("tarai({}, {}, {}) = {}\n", .{ x, y, z, tarai(x, y, z) });
 }
