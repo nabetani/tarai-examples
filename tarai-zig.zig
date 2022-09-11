@@ -8,6 +8,16 @@ fn tarai(x: i32, y: i32, z: i32) i32 {
     }
 }
 
+fn arg_i32(ix: usize, fallback: i32) !i32 {
+    if (std.os.argv.len<=ix) {
+        return fallback;
+    }
+    return try std.fmt.parseInt(i32, std.mem.span(std.os.argv[ix]), 10);
+}
+
 pub fn main() !void {
-    try std.io.getStdOut().writer().print("{}\n", .{tarai(14, 7, 0)});
+    var x: i32 = try arg_i32(1, 14);
+    var y: i32 = try arg_i32(2, 7);
+    var z: i32 = try arg_i32(3, 0);
+    try std.io.getStdOut().writer().print("tarai({}, {}, {}) = {}\n", .{ x, y, z, tarai(x, y, z) });
 }
