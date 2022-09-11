@@ -9,6 +9,10 @@ TARGETS = \
 
 all : $(TARGETS)
 
+bin/tarai-swift: tarai-swift.swift
+	mkdir -p bin
+	swiftc -O $< -o $@
+
 bin/tarai-gcc: tarai-c.c
 	mkdir -p bin
 	gcc-12 -O2 $< -o $@
@@ -38,12 +42,14 @@ clean :
 
 ARGS = 15 7 0
 test: all
+	time bin/tarai-swift ${ARGS}
 	time bin/tarai-gcc ${ARGS}
 	time bin/tarai-clang ${ARGS}
 	time bin/tarai-go ${ARGS}
 	time bin/tarai-zig ${ARGS}
 	time bin/tarai-zig_x64 ${ARGS}
 	time bin/tarai-rust ${ARGS}
+	time bin/tarai-swift ${ARGS}
 	time bin/tarai-gcc ${ARGS}
 	time bin/tarai-clang ${ARGS}
 	time bin/tarai-go ${ARGS}

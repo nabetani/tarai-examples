@@ -9,6 +9,9 @@ Target machine is MacBook Pro (14inch, 2021) including Apple M1 Pro (non-MAX)
 # result
 
 ```
+time bin/tarai-swift 15 7 0
+tarai(15, 7, 0)=15
+        3.56 real         3.55 user         0.00 sys
 time bin/tarai-gcc 15 7 0
 tarai(15, 7, 0) = 15
         4.10 real         4.08 user         0.00 sys
