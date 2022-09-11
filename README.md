@@ -2,28 +2,29 @@
 
 Codes for benchmarks in personaly interest.
 
-https://sumim.hatenablog.com/entry/2022/09/08/173557
+Modified by NABETANI Takenori.
+
+Target machine is MacBook Pro (14inch, 2021) including Apple M1 Pro (non-MAX)
+
+# result
 
 ```
-==== C
-14
-real    0.606
-system  0.000
-user    0.593
-==== Go
-14
-real    1.378
-system  0.015
-user    1.359
-==== Zig
-14
-real    1.000
-system  0.000
-user    1.000
-==== Rust
-14
-real    1.056
-system  0.000
-user    1.046
+time bin/tarai-gcc 15 7 0
+tarai(15, 7, 0) = 15
+        4.10 real         4.08 user         0.00 sys
+time bin/tarai-clang 15 7 0
+tarai(15, 7, 0) = 15
+        3.56 real         3.55 user         0.00 sys
+time bin/tarai-go 15 7 0
+tarai(15, 7, 0) = 15
+        4.09 real         4.08 user         0.00 sys
+time bin/tarai-zig 15 7 0
+tarai(15, 7, 0) = 15
+        3.40 real         3.39 user         0.00 sys
+time bin/tarai-zig_x64 15 7 0
+tarai(15, 7, 0) = 15
+        5.07 real         5.06 user         0.00 sys
+time bin/tarai-rust 15 7 0
+tarai(15, 7, 0) = 15
+        3.40 real         3.40 user         0.00 sys
 ```
-Windows 64bit Ryzen 5 3500U, 32GB RAM
